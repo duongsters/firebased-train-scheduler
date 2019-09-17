@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title> Firebase Train Scheduler</title>
-        <!-- Link in Bootstrap CDN -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-        <!-- Link in CSS -->
-        <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <!-- Link in Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Link in CSS -->
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
 </head>
 
 
 <!-- used Bootstrap Jumbotron to create my header title page -->
-<div class = "jumbotron">
+<div class="jumbotron">
     <div class="col-lg-2 col-sm-2 col-xs-2" id="titlePage">
         <h1 class="text-center">Train Schedule Planner</h1>
         <h2 class="text-center">Schedule or fina a suitable trip to any train!</h2>
@@ -22,41 +24,85 @@
 <!-- created a 'mainContain' class div to hold everything easily -->
 <div class="mainContainer">
 
-<!-- where the current time will be displayed -->
+    <!-- where the current time will be displayed -->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="text-center currentTime"> Current Time: <span id="currentTime" class="clockDisplay"></span></h1>
         </div>
     </div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="panel defaultPanel">
 
-        <!-- List of Available Train Schedules Area -->
-            <div class="headerPanel">
-                <h3 class="titlePanel">List of Available Train Schedules</h3>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel defaultPanel">
+
+                <!-- List of Available Train Schedules Area -->
+                <div class="headerPanel">
+                    <h3 class="titlePanel">List of Available Train Schedules</h3>
+                </div>
+
+                <!-- Body area of the page that hold the train schedules (preset and dynamic)-->
+                <div class="bodyPanel">
+                    <!-- where the set variables needed of the train scheduling table is placed -->
+                    <table class="trainTable">
+                        <tr id="dynamicTable>">
+                            <th>Train Name</th>
+                            <th>Destination</th>
+                            <th>Frequency (min)</th>
+                            <th>Next Arrival</th>
+                            <th>Minutes Away</th>
+                        </tr>
+                    </table>
+
+                </div>
             </div>
-        
-<!-- Body area of the page that hold the train schedules (preset and dynamic)-->
-        <div class="bodyPanel">
-            <!-- where the set variables needed of the train scheduling table is placed -->
-            <table class="trainTable">
-                <tr id="dynamicTable>">
-                    <th>Train Name</th>
-                    <th>Destination</th>
-                    <th>Frequency (min)</th>
-                    <th>Next Arrival</th>
-                    <th>Minutes Away</th>
-                </tr>
-            </table>
-
-        </div>
         </div>
     </div>
-</div>
 
-</div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel defaultPanel">
+
+
+                <div class="headerPanel">
+                    <h3 class="titlePanel">Add your own schedule by filling out the form below</h3>
+                </div>
+
+                <div class="bodyPanel">
+                    <!-- Area where the user inputs their own train schedules  -->
+                    <form role="trainScheduleForm">
+
+                        <div class="dynamicGroupForm">
+                            <label for="text">Train Name</label>
+                            <input type="text" class="userFormInput" id="trainName">
+                        </div>
+                        <div class="dynamicGroupForm">
+                            <label for="text">Destination</label>
+                            <input type="text" class="userFormInput" id="trainDestination">
+                        </div>
+                        <div class="dynamicGroupForm">
+                            <label for="text">First Train Time (HH:mm - Military Time)</label>
+                            <input type="text" class="userFormInput" id="trainArrival">
+                        </div>
+                        <div class="dynamicGroupForm">
+                            <label for="text">Frequency (min)</label>
+                            <input type="number" class="userFormInput" id="trainFrequency">
+                        </div>
+                    </form>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
 
 
 </html>
