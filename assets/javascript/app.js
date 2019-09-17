@@ -33,7 +33,7 @@ $("#submitBtn").on("click", function(){
     //the form area of the page with the index.html
     var trainName = $("#trainName").val().trim();
     var trainDestination = $("#trainDestination").val().trim();
-    var trainNextArrival = $("#trainNextArrival").val().trim();
+    var trainArrival = $("#trainArrival").val().trim();
     var trainFrequency = $("#trainFrequency").val().trim();
 
     // created a couple if functions that will check whether the user has input the correct information within the form portion
@@ -46,16 +46,42 @@ $("#submitBtn").on("click", function(){
         alert("Enter a valid destination")
         return false;
     }
-    if (trainNextArrival == "" || trainNextArrival== null) {
+    if (trainArrival == "" || trainArrival== null) {
         alert("Enter a valid arrival time");
         return false;
     }
-    if (trainFrequency == "" || trainFrequency == null) {
+    //checks if the frequency number the user has entered isn't blank, is also greater than 1 and is also null/undefined
+    if (trainFrequency == "" || trainFrequency<1 || trainFrequency == null) {
         alert("Enter a valid frequecy of the next arrival of your train...must be greater than 0!");
         return false;
     }
 
 
+//specifically created and if, else if function for where the user inputs the First Train Time input box within the form area
+//because the assignment asked for the user to specifically input the First Arrival Train time in military time
+    //checks if the input length is 5 digits and also if the ":" semicolon is correctly used before submission
+    if (trainArrival.length !=5 || trainArrival.substring(2,3) != ":") {
+        alert("Enter a valid time in MILITARY FORMAT!");
+        return false; 
+    }
+    //checks if the input is not a number (isNaN) and whether the numbers entered are placed correctly from both sides of the semicolon
+    else if (isNaN(parseInt(trainArrival.substring(0,2))) || isNaN(parseInt(trainArrival.substring(3)))) {
+        alert("Enter a valid time with the correct placement in between the semicolons");
+        return false;
+    }
+    //converting the user input string to integer (parseInt) this will check if the input time has a valid hour mark setting that ranged from 00-23 hours
+    else if (parseInt(trainArrival.substring(0,2)) < 0 || parseInt(trainArrival.substring(0,2)) > 23) {
+        alert("Enter a valid time where the hours are from '00'-'23' hourse");
+        return false;
+    }
+    //initially converting the user input from string to integer, this will check if the time the user entered is from the valid 
+    //minutes interval of 00-59 minutes after the semicolon
+    else if (parseInt(trainArrival.substring(3)) < 0 || parseInt(trainArrival.substring(3)) > 59) {
+        alert("Enter a valid time where the minutes are from '00'-'59' minutes");
+        return false;
+    }
 
 
+
+    
 })
