@@ -3,8 +3,9 @@
 ![My Site](assets/images/Screenshot.png)
 
 ## Technologies Used:
-- HTML: Used to create elements 
-- Google Firebase: 
+- HTML: Used to create needed object elements 
+- Moment.JS: Find the current time. Then, use that to manipulate the webpage to be refreshed without the need of pressing the refresh button to refresh the train schedules 
+- Firebase: Used their serverbase to push and pull data back and forth dynamically, and create snapshots of the values
 - jQuery: Allowed me to dynamically create elements that could be appended/prepended to the html files
 - JavaScript: Used in the HTLM files and JS files
 - Bootstrap: Navbar, button(s) and form were mainly used with the help of the resources of Bootstrap's preset codes
@@ -13,7 +14,8 @@
 - GitHub: Used to create the repository for the html and css in which that can be pushed to GitHub domain
 
 ## Summary:
-This assignment we learned to used all the javascript and jQuery learned throughout the class the last 1.5 weeks and where we were able to fully implement out the DOM methods in creating dynamic elements...ranging from .appends, .on clicks, creating elements (ie. divs, classes, ids, variables, rows, img srcs and many more. 
+    I built a train schedule application that display the current time that is located at the top of the page below the title. The administrator should be able to input their own train schedule by submitting the: Train Name, Destination, First Train Time --in military time, and the Frequecy--in minutes. With use of Moment.js, I coded this scheduling application to calculate the Minutes Away that the Next Arrival train will come next--all of this whilst the information provided will be rendering that information in current time. By keeping the information of the object elements, the administator should not have to reset to get an updated listing of train schedle(s). 
+    By utilizing Firebase as a means to to push & pull data back and forth to their servers that is coming in real-time to snapshot the incoming data entered by the user admin within the form, moment.js retrieves the information within the form and renders the information newly given and return a result that was coded based on the current time.
 
 ## Code Snippet:
 ```html

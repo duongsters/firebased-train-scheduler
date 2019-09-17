@@ -11,7 +11,8 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
-<!-- background train animation -->
+<!-- !!!animated background train animation!! -->
+    <!-- SOURCE: https://codepad.co/snippet/moving-train-using-only-css -->
 <div class="wrapper">
     <div class="background"></div>
     <div class="rocks_1"></div>
@@ -62,13 +63,15 @@
                     <!-- Body area of the page that hold the train schedules (preset and dynamic)-->
                     <div class="bodyPanel text-center">
                         <!-- where the set variables needed of the train scheduling table is placed -->
-                        <table class="trainTable">
+                        <table align="center" class="trainTable" cellspacing="10">
                             <tr id="trainTable">
-                                <th>Train Name</th>
-                                <th>Destination</th>
-                                <th>Frequency (min)</th>
-                                <th>Next Arrival</th>
-                                <th>Minutes Away</th>
+                              <thead>
+                                <th width="20%">Train Name</th>
+                                <th width="20%">Destination</th>
+                                <th width="25%">Frequency (min)</th>
+                                <th width="20%">Next Arrival</th>
+                                <th width="20%">Minutes Away</th>
+                              </thead>
                             </tr>
                         </table>
 
@@ -90,20 +93,20 @@
                         <form role="trainScheduleForm">
                             <div class="dynamicGroupForm">
                                 <label for="text">Train Name</label>
-                                <input type="text" class="userFormInput" id="trainName" placeholder="Amtrak Express">
+                                <input type="text" class="userFormInput" id="trainName" placeholder="ie. Amtrak Express">
                             </div>
                             <div class="dynamicGroupForm">
                                 <label for="text">Destination</label>
                                 <input type="text" class="userFormInput" id="trainDestination"
-                                    placeholder="San Francisco">
+                                    placeholder="ie. San Jose">
                             </div>
                             <div class="dynamicGroupForm">
-                                <label for="text">First Train Time (HH:mm - Military Time)</label>
-                                <input type="text" class="userFormInput" id="trainArrival" placeholder="14:00">
+                                <label for="text">First Train Time</label>
+                                <input type="text" class="userFormInput" id="trainArrival" placeholder="(HH:mm - Military Time)">
                             </div>
                             <div class="dynamicGroupForm">
-                                <label for="text">Frequency (min)</label>
-                                <input type="number" class="userFormInput" id="trainFrequency" placeholder="15">
+                                <label for="text">Frequency</label>
+                                <input type="number" class="userFormInput" id="trainFrequency" placeholder="ie. 5 minutes">
                             </div>
                             <!-- Submit Button is created, by Bootstrap, and placed here -->
                             <button type="submit" class="btn btn-default" id="submitBtn">Submit</button>
