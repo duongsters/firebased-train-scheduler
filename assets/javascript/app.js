@@ -84,10 +84,32 @@ $("#submitBtn").on("click", function(){
     //with moment.js, I am able to capture the specific time for today, I can retrieve the data that of when the user has has successfully
     //submitted their form to the train scheduler
     var rightNow = new Date();
-    var thisDate = rightNow.getDate();
-    var thisMonth = rightNow.getMonth() +1;
-    var thisYear = rightNow.getFullYear();
+    var date = rightNow.getDate();
+    var month = rightNow.getMonth() +1;
+    var year = rightNow.getFullYear();
 
+    //initally create an open string for variable 'rightNowString' 
+    var rightNowString = "";
+    //then concatinate the time created from lines 86-89 within 'rightNowString'
+    var rightNowString = rightNowString.concat(month, "/", date, "/", year);
+
+
+    //creaated 'firstArrival' variable to store the current date and time that will later be used to store within the firebase server
+    var firstArrival = rightNowString.concat(" ", trainArrival);
+
+//line 101 is important in that it will basically referencing all the new information the user has entered of their train schedule from the form 
+//portion of the page and pushing it over to the firebase servers
+    database.ref().push({
+        name: trainName,
+        destination: trainDestination,
+        arrivalTime: firstArrival,
+        frequency: trainFrequency
+        
+    });
+
+
+    //after the user has successfully entered their train schedule and it has been successfully been sent to the firebase servers,
+    //clearing the form page is required so users can input more train schedules
     
 
 
