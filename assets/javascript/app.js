@@ -110,8 +110,10 @@ $("#submitBtn").on("click", function(){
 
     //after the user has successfully entered their train schedule and it has been successfully been sent to the firebase servers,
     //clearing the form page is required so users can input more train schedules
-    
-
+    $("#trainName").val("");
+    $("#trainDestination").val("");
+    $("#trainArrival").val("");
+    $("#trainFrequency").val("");
 
 
 
