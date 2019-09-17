@@ -81,7 +81,16 @@ $("#submitBtn").on("click", function(){
         return false;
     }
 
-
+    //with moment.js, I am able to capture the specific time for today, I can retrieve the data that of when the user has has successfully
+    //submitted their form to the train scheduler
+    var rightNow = new Date();
+    var thisDate = rightNow.getDate();
+    var thisMonth = rightNow.getMonth() +1;
+    var thisYear = rightNow.getFullYear();
 
     
+
+
+
+
 })
