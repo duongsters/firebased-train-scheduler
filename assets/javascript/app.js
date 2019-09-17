@@ -17,18 +17,19 @@ var rendering;
 
 
 
-
 //references on the new value changes then pulls new data to the firebase database
-database.ref().on("value", function(snapshot){
-//'data' was made to extract the javascript values of the Datasnapshot...using .val() would return a datasnapshot value of a scalar type 
-    var data = snapshot.val();
+database.ref().on("value", function (snapshot) {
+    //'data' was made to extract the javascript values of the Datasnapshot...using .val() would return a datasnapshot value of a scalar type 
+    data = snapshot.val();
 
+    //updates train schedule table with the new variables from the user input
+    renderTableData();
 });
 
 
 
 //.on click even handler that captures the user's button clicks and if so, this function is ran soon after based on those events
-$("#submitBtn").on("click", function(){
+$("#submitBtn").on("click", function () {
     //initally the function would create these new variables to retrieve the incoming data from the unique IDs created from 
     //the form area of the page with the index.html
     var trainName = $("#trainName").val().trim();
@@ -44,34 +45,34 @@ $("#submitBtn").on("click", function(){
         return false;
     }
     if (trainDestination == "" || trainDestination == null) {
-        alert("Enter a valid destination")
+        alert("Enter a valid destination");
         return false;
     }
-    if (trainArrival == "" || trainArrival== null) {
+    if (trainArrival == "" || trainArrival == null) {
         alert("Enter a valid arrival time");
         return false;
     }
     //checks if the frequency number the user has entered isn't blank, is also greater than 1 and is also null/undefined
-    if (trainFrequency == "" || trainFrequency<1 || trainFrequency == null) {
+    if (trainFrequency == "" || trainFrequency < 1 || trainFrequency == null) {
         alert("Enter a valid frequecy of the next arrival of your train...must be greater than 0!");
         return false;
     }
 
 
-//specifically created and if, else if conditional statements for where the user inputs the First Train Time input box within the form area
-//because the assignment asked for the user to specifically input the First Arrival Train time in military time
+    //specifically created and if, else if conditional statements for where the user inputs the First Train Time input box within the form area
+    //because the assignment asked for the user to specifically input the First Arrival Train time in military time
     //checks if the input length is 5 digits and also if the ":" semicolon is correctly used before submission
-    if (trainArrival.length !=5 || trainArrival.substring(2,3) != ":") {
+    if (trainArrival.length != 5 || trainArrival.substring(2, 3) != ":") {
         alert("Enter a valid time in MILITARY FORMAT!");
-        return false; 
+        return false;
     }
     //checks if the input is not a number (isNaN) and whether the numbers entered are placed correctly from both sides of the semicolon
-    else if (isNaN(parseInt(trainArrival.substring(0,2))) || isNaN(parseInt(trainArrival.substring(3)))) {
+    else if (isNaN(parseInt(trainArrival.substring(0, 2))) || isNaN(parseInt(trainArrival.substring(3)))) {
         alert("Enter a valid time with the correct placement in between the semicolons");
         return false;
     }
     //converting the user input string to integer (parseInt) this will check if the input time has a valid hour mark setting that ranged from 00-23 hours
-    else if (parseInt(trainArrival.substring(0,2)) < 0 || parseInt(trainArrival.substring(0,2)) > 23) {
+    else if (parseInt(trainArrival.substring(0, 2)) < 0 || parseInt(trainArrival.substring(0, 2)) > 23) {
         alert("Enter a valid time where the hours are from '00'-'23' hourse");
         return false;
     }
@@ -86,7 +87,7 @@ $("#submitBtn").on("click", function(){
     //submitted their form to the train scheduler
     var rightNow = new Date();
     var date = rightNow.getDate();
-    var month = rightNow.getMonth() +1;
+    var month = rightNow.getMonth() + 1;
     var year = rightNow.getFullYear();
 
     //initally create an open string for variable 'rightNowString' 
@@ -98,14 +99,14 @@ $("#submitBtn").on("click", function(){
     //creaated 'firstArrival' variable to store the current date and time that will later be used to store within the firebase server
     var firstArrival = rightNowString.concat(" ", trainArrival);
 
-//line 101 is important in that it will basically referencing all the new information the user has entered of their train schedule from the form 
-//portion of the page and pushing it over to the firebase servers
+    //line 101 is important in that it will basically referencing all the new information the user has entered of their train schedule from the form 
+    //portion of the page and pushing it over to the firebase servers
     database.ref().push({
         name: trainName,
         destination: trainDestination,
         arrivalTime: firstArrival,
         frequency: trainFrequency
-        
+
     });
 
 
@@ -116,8 +117,8 @@ $("#submitBtn").on("click", function(){
     $("#trainArrival").val("");
     $("#trainFrequency").val("");
 
-//line 118 is important in adding at the very end of this on click handler function so that by returning false, this will override the
-//user from clicking on anything on the page any further and create confusion on both ends
+    //line 118 is important in adding at the very end of this on click handler function so that by returning false, this will override the
+    //user from clicking on anything on the page any further and create confusion on both ends
     return false;
 });
 
@@ -127,9 +128,8 @@ $("#submitBtn").on("click", function(){
 function renderTableData() {
 
     //clears all needed data within the 'mainContainer'...tables..body...rows
-    $(".trainTable").empty();
-    $(".body").empty();
-    $(".row").empty();
+    $(".trainTable-body-row").empty();
+
 
     //after clearing pretty much all info from the 'mainContainer', 'objectArr' & 'timeArr' variables are created to be used as a open array
     //dynamic placeholders to push the user input to the index.html table
@@ -137,7 +137,7 @@ function renderTableData() {
     var timeArr = [];
 
     //line 139 is made to easily iterate through the objects and arrays data by analyzing and then pushing it to index.html
-    $.each(data, function(key, value) {
+    $.each(data, function (key, value) {
 
         //retrieves the variables from the firebase server then places it in it's specfic global variables
         var trainName = value.name;
@@ -151,11 +151,11 @@ function renderTableData() {
 
 
 
-//-------------------------------Moment.JS rendering-----------------------------------------------------------//
-    //created the 'renderDate' variable to find time of the train arrival
-var renderDate = moment(new Date(trainArrival));
-    //calculates the minutes away from the time of the train's First Arrival
-var minutesFromFirstArrival = moment(renderDate).diff(moment(), "minutes")*(-1);
+        //-------------------------------Moment.JS rendering-----------------------------------------------------------//
+        //created the 'renderDate' variable to find time of the train arrival
+        var renderDate = moment(new Date(trainArrival));
+        //calculates the minutes away from the time of the train's First Arrival
+        var minutesFromFirstArrival = moment(renderDate).diff(moment(), "minutes") * (-1);
 
         //created and if, else conditional statement that will run if
         if (minutesFromFirstArrival <= 0) {
@@ -190,15 +190,17 @@ var minutesFromFirstArrival = moment(renderDate).diff(moment(), "minutes")*(-1);
     });
 
     //sorts the time array in order from small to large with the .sort method
-    timeArr.sort(function(a, b){
-        return a-b
+    timeArr.sort(function (a, b) {
+        return a - b
     });
 
+    //important to use the .unique jQuery function to sort the timeArr's DOM elements and removes all duplicates
+    //doing so would make the for loops starting on line 201 be ran smoother without problems
     $.unique(timeArr)
     //double for loop condition is made to loop through the timed values then push the new values within the train schedule table in index.html
     for (var j = 0; j < timeArr.length; j++) {
         //created a double for loop to check for any duplicates within the time frame for variable i and j
-        for (var i = 0; i <objectArr.length; i++) {
+        for (var i = 0; i < objectArr.length; i++) {
             //if the the objectArr's minutes to arrival is = to the next lowest value...
             if (objectArr[i].minutesAway == timeArr[j]) {
                 //then, dynamically push the objectArr's values to the train schedule table from index.html
@@ -224,18 +226,29 @@ var minutesFromFirstArrival = moment(renderDate).diff(moment(), "minutes")*(-1);
 
 
                 //append new fully created data cells with corresponding text to the html IDs
-                newData.append();
-                newData.append();
-                newData.append();
-                newData.append();
-                newData.append();
+                appendRow.append(trainNameTd);
+                appendRow.append(destinationTd);
+                appendRow.append(frequecyTd);
+                appendRow.append(nextArrivalTd);
+                appendRow.append(minAwayTd);
 
 
-
-
+                //finally we append the entire new row created within app.js to the train schedule table 
+                $(".trainTable").append(appendRow);
             }
         }
     }
+}
+// ------------------------CURRENT TIME & REFRESHING TIME RENDERING-----------------------------------//
+var timeRender = setInterval(time, 1000);
 
+function time() {
+    var currentTime = moment().format("hh:mm:ss A");
+    $("#currentTime").text(currentTime);
 
+    var refreshTime = moment().format("ss");
+
+    if (refreshTime == "00") {
+        renderTableData();
+    }
 }
