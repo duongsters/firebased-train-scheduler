@@ -115,6 +115,25 @@ $("#submitBtn").on("click", function(){
     $("#trainArrival").val("");
     $("#trainFrequency").val("");
 
+//line 118 is important in adding at the very end of this on click handler function so that by returning false, this will override the
+//user from clicking on anything on the page any further and create confusion on both ends
+    return false;
+});
 
 
-})
+
+// the renderTableData function is made to dynamically refresh the train schedule table within index.html 
+function renderTableData() {
+
+    //clears all needed data within the 'mainContainer'...tables..body...rows
+    $(".trainTable").empty();
+    $(".body").empty();
+    $(".row").empty();
+
+    //after clearing pretty much all info from the 'mainContainer', 'objectArr' & 'timeArr' variables are created to be used as a
+    //dynamic placeholder to push the user input to the index.html table
+    var objectArr = [];
+    var timeArr = [];
+
+    $.
+}
