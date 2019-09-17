@@ -130,10 +130,33 @@ function renderTableData() {
     $(".body").empty();
     $(".row").empty();
 
-    //after clearing pretty much all info from the 'mainContainer', 'objectArr' & 'timeArr' variables are created to be used as a
-    //dynamic placeholder to push the user input to the index.html table
+    //after clearing pretty much all info from the 'mainContainer', 'objectArr' & 'timeArr' variables are created to be used as a open array
+    //dynamic placeholders to push the user input to the index.html table
     var objectArr = [];
     var timeArr = [];
 
-    $.
+    //line 139 is made to easily iterate through the objects and arrays data by analyzing and then pushing it to index.html
+    $.each(data, function(key, value) {
+
+        //retrieves the variables from the firebase server then places it in it's specfic global variables
+        var trainName = value.name;
+        var trainDestination = value.destination;
+        var trainFrequency = value.frequency;
+        var trainArrival = value.arrivalTime;
+
+        //created the inital variables that will calculate the Next train Arrival & the minutes away from the Next train Arrival
+        var trainNextArrival;
+        var trainMinutesAway;
+
+
+
+//-------------------------------Moment.JS rendering-----------------------------------------------------------//
+    //created the 'renderDate' variable to find the new time of the train arrival
+var renderDate = moment(new Date(trainArrival));
+    //calculates the minutes away from the time of the train's First Arrival
+var minutesFromFirstArrival = moment(renderDate).diff(moment(), "minutes")*(-1);
+
+
+
+    }
 }
