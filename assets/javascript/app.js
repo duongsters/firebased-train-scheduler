@@ -27,15 +27,17 @@ database.ref().on("value", function(snapshot){
 
 
 
-//captures the user's button clicks and this funcation is ran
+//.on click even handler that captures the user's button clicks and if so, this function is ran soon after based on those events
 $("#submitBtn").on("click", function(){
-    //initally the function would collect the unique IDs created from the form area of the page with the index.html
+    //initally the function would create these new variables to retrieve the incoming data from the unique IDs created from 
+    //the form area of the page with the index.html
     var trainName = $("#trainName").val().trim();
     var trainDestination = $("#trainDestination").val().trim();
     var trainNextArrival = $("#trainNextArrival").val().trim();
     var trainFrequency = $("#trainFrequency").val().trim();
 
-
+    // created a couple if functions that will check whether the user has input the correct information within the form portion
+    // when adding their own train schedules by checking if they entered a blank form before pressing submit
     if (trainName == "" || trainName == null) {
         alert("Enter in a valid name of your train");
         return false;
@@ -52,4 +54,8 @@ $("#submitBtn").on("click", function(){
         alert("Enter a valid frequecy of the next arrival of your train...must be greater than 0!");
         return false;
     }
+
+
+
+
 })
