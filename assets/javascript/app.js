@@ -36,8 +36,9 @@ $("#submitBtn").on("click", function(){
     var trainArrival = $("#trainArrival").val().trim();
     var trainFrequency = $("#trainFrequency").val().trim();
 
-    // created a couple if functions that will check whether the user has input the correct information within the form portion
-    // when adding their own train schedules by checking if they entered a blank form before pressing submit
+    // created a couple if statements that will check whether the user has input the correct information within the form portion
+    // when adding their own train schedules by checking if they entered a blank form before pressing submit by return a false boolean value
+    //and stopping the code from running furthemore within this on click handle event function
     if (trainName == "" || trainName == null) {
         alert("Enter in a valid name of your train");
         return false;
@@ -57,7 +58,7 @@ $("#submitBtn").on("click", function(){
     }
 
 
-//specifically created and if, else if function for where the user inputs the First Train Time input box within the form area
+//specifically created and if, else if conditional statements for where the user inputs the First Train Time input box within the form area
 //because the assignment asked for the user to specifically input the First Arrival Train time in military time
     //checks if the input length is 5 digits and also if the ":" semicolon is correctly used before submission
     if (trainArrival.length !=5 || trainArrival.substring(2,3) != ":") {
@@ -151,12 +152,90 @@ function renderTableData() {
 
 
 //-------------------------------Moment.JS rendering-----------------------------------------------------------//
-    //created the 'renderDate' variable to find the new time of the train arrival
+    //created the 'renderDate' variable to find time of the train arrival
 var renderDate = moment(new Date(trainArrival));
     //calculates the minutes away from the time of the train's First Arrival
 var minutesFromFirstArrival = moment(renderDate).diff(moment(), "minutes")*(-1);
 
+        //created and if, else conditional statement that will run if
+        if (minutesFromFirstArrival <= 0) {
+            //train arrival equals current time - train's first arrival time
+            trainMinutesAway = moment(renderDate).diff(moment(), "minutes");
+            //Next arrival time is equal to the First train arrival time
+            trainNextArrivalDate = renderDate;
+        }
+        else {
+            //next train arrival = train's frequency minus the remainder minutes aways from the time of the First Arrival
+            trainMinutesAway = trainFrequency - (minutesFromFirstArrival % trainFrequency);
+            //next train arrival time is adding the current time + minutes away from next arrival train time
+            var trainNextArrivalDate = moment().add(trainMinutesAway, "minutes");
+        }
+        //recalibrates the time to 12 hours reading of am/pm
+        trainNextArrival = trainNextArrivalDate.format("hh:mm A");
 
 
+        //lines 179-183 may look similar to lines104-107,but this specfically for the variable IDs within the train schedule table
+        //and not the IDs within the form
+        var newData = {
+            name: trainName,
+            destination: trainDestination,
+            freq: trainFrequency,
+            nextArrival: trainNextArrival,
+            minutesAway: trainMinutesAway
+        };
+        //pushes the newData values into to the open arrayed 'objectArr' variable
+        objectArr.push(newData);
+        //pushed the minutes remaining until the next train arrival to the open array storeholder of 'timeArr'
+        timeArr.push(trainMinutesAway);
+    });
+
+    //sorts the time array in order from small to large with the .sort method
+    timeArr.sort(function(a, b){
+        return a-b
+    });
+
+    $.unique(timeArr)
+    //double for loop condition is made to loop through the timed values then push the new values within the train schedule table in index.html
+    for (var j = 0; j < timeArr.length; j++) {
+        //created a double for loop to check for any duplicates within the time frame for variable i and j
+        for (var i = 0; i <objectArr.length; i++) {
+            //if the the objectArr's minutes to arrival is = to the next lowest value...
+            if (objectArr[i].minutesAway == timeArr[j]) {
+                //then, dynamically push the objectArr's values to the train schedule table from index.html
+                var appendRow = $("<tr>");
+                //by creating a new table, body and rows needed to input the new values within the growing table
+                appendRow.addClass("trainTable");
+                appendRow.addClass("body");
+                appendRow.addClass("row");
+
+                // create new data cells within train schedule table
+                var trainNameTd = $("<td>");
+                var destinationTd = $("<td>");
+                var frequecyTd = $("<td>");
+                var nextArrivalTd = $("<td>");
+                var minAwayTd = $("<td>");
+
+                //after creating new data cells ahead, now add text to the cells accordingly to the corresponding IDs
+                trainNameTd.text(objectArr[i].name);
+                destinationTd.text(objectArr[i].destination);
+                frequecyTd.text(objectArr[i].freq);
+                nextArrivalTd.text(objectArr[i].nextArrival);
+                minAwayTd.text(objectArr[i].minutesAway)
+
+
+                //append new fully created data cells with corresponding text to the html IDs
+                newData.append();
+                newData.append();
+                newData.append();
+                newData.append();
+                newData.append();
+
+
+
+
+            }
+        }
     }
+
+
 }
